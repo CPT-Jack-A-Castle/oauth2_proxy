@@ -26,7 +26,7 @@ func (p *OktaProvider) SetOktaDomain(domain string) {
 		p.LoginURL = &url.URL{
 			Scheme: "https",
 			Host:   domain,
-			Path:   "/oauth2/v1/authorize",
+			Path:   "/oauth2/v1/authorize?max-age=21600",
 		}
 	}
 	if p.RedeemURL == nil || p.RedeemURL.String() == "" {
