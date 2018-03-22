@@ -29,7 +29,7 @@ func (p *OktaProvider) SetOktaDomain(domain string) {
 			Path:   "/oauth2/v1/authorize",
 		}
 		q := u.Query()
-		q.Set("max-age", "21600")
+		q.Set("max_age", "21600")
 		u.RawQuery = q.Encode()
 		p.LoginURL = u
 	}
