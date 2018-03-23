@@ -90,7 +90,7 @@ func (p *ProviderData) GetLoginURL(redirectURI, state string) string {
 	params.Set("response_type", "code")
 	params.Add("state", state)
 	if p.MaxAge > time.Duration(0) {
-		params.Add("max_age", fmt.Sprintf("%d", p.MaxAge))
+		params.Add("max_age", fmt.Sprintf("%.0f", p.MaxAge.Seconds()))
 	}
 	a.RawQuery = params.Encode()
 	return a.String()
