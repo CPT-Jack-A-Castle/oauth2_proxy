@@ -2,6 +2,7 @@ package providers
 
 import (
 	"net/url"
+	"time"
 )
 
 type ProviderData struct {
@@ -15,6 +16,7 @@ type ProviderData struct {
 	ValidateURL       *url.URL
 	Scope             string
 	ApprovalPrompt    string
+	MaxAge            time.Duration
 }
 
 func (p *ProviderData) Data() *ProviderData { return p }
