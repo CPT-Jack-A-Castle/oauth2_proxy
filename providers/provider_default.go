@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/bitly/oauth2_proxy/cookie"
 )
@@ -88,6 +89,9 @@ func (p *ProviderData) GetLoginURL(redirectURI, state string) string {
 	params.Set("client_id", p.ClientID)
 	params.Set("response_type", "code")
 	params.Add("state", state)
+	if p.MaxAge > time.Duration(0) {
+		params.Add("max_age", p.MaxAge)
+	}
 	a.RawQuery = params.Encode()
 	return a.String()
 }

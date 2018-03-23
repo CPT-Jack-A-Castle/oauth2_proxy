@@ -23,15 +23,11 @@ func NewOktaProvider(p *ProviderData) *OktaProvider {
 
 func (p *OktaProvider) SetOktaDomain(domain string) {
 	if p.LoginURL == nil || p.LoginURL.String() == "" {
-		u := &url.URL{
+		p.LoginURL = &url.URL{
 			Scheme: "https",
 			Host:   domain,
 			Path:   "/oauth2/v1/authorize",
 		}
-		q := u.Query()
-		q.Set("max_age", "21600")
-		u.RawQuery = q.Encode()
-		p.LoginURL = u
 	}
 	if p.RedeemURL == nil || p.RedeemURL.String() == "" {
 		p.RedeemURL = &url.URL{
