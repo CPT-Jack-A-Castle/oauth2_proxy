@@ -15,7 +15,7 @@ type ProviderData struct {
 	ProtectedResource *url.URL
 	ValidateURL       *url.URL
 	Scope             string
-	ApprovalPrompt    string
+	Prompt            string
 	MaxAge            time.Duration
 }
 

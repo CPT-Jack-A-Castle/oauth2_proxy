@@ -74,7 +74,7 @@ type Options struct {
 	ProtectedResource string `flag:"resource" cfg:"resource"`
 	ValidateURL       string `flag:"validate-url" cfg:"validate_url"`
 	Scope             string `flag:"scope" cfg:"scope"`
-	ApprovalPrompt    string `flag:"approval-prompt" cfg:"approval_prompt"`
+	Prompt            string `flag:"prompt" cfg:"prompt"`
 
 	RequestLogging       bool   `flag:"request-logging" cfg:"request_logging"`
 	RequestBodyLogging   bool   `flag:"request-body-logging" cfg:"request_body_logging"`
@@ -114,7 +114,7 @@ func NewOptions() *Options {
 		PassUserHeaders:      true,
 		PassAccessToken:      false,
 		PassHostHeader:       true,
-		ApprovalPrompt:       "force",
+		Prompt:               "login",
 		RequestLogging:       true,
 		RequestBodyLogging:   false,
 		RequestLoggingFormat: defaultRequestLoggingFormat,
@@ -251,11 +251,11 @@ func (o *Options) Validate() error {
 
 func parseProviderInfo(o *Options, msgs []string) []string {
 	p := &providers.ProviderData{
-		Scope:          o.Scope,
-		ClientID:       o.ClientID,
-		ClientSecret:   o.ClientSecret,
-		ApprovalPrompt: o.ApprovalPrompt,
-		MaxAge:         o.MaxAge,
+		Scope:        o.Scope,
+		ClientID:     o.ClientID,
+		ClientSecret: o.ClientSecret,
+		Prompt:       o.Prompt,
+		MaxAge:       o.MaxAge,
 	}
 	p.LoginURL, msgs = parseURL(o.LoginURL, "login", msgs)
 	p.RedeemURL, msgs = parseURL(o.RedeemURL, "redeem", msgs)
