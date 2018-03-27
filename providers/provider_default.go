@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -48,8 +47,6 @@ func (p *ProviderData) Redeem(redirectURL, code string) (s *SessionState, err er
 	if err != nil {
 		return
 	}
-
-	log.Println(string(body))
 
 	if resp.StatusCode != 200 {
 		err = fmt.Errorf("got %d from %q %s", resp.StatusCode, p.RedeemURL.String(), body)

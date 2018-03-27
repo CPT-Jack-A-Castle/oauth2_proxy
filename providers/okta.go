@@ -20,7 +20,7 @@ type OktaProvider struct {
 func NewOktaProvider(p *ProviderData) *OktaProvider {
 	p.ProviderName = "Okta"
 	if p.Scope == "" {
-		p.Scope = "openid profile email"
+		p.Scope = "openid profile email offline_access"
 	}
 	return &OktaProvider{ProviderData: p}
 }
@@ -92,11 +92,6 @@ func (p *OktaProvider) ValidateSessionState(s *SessionState) bool {
 }
 
 func (p *OktaProvider) RefreshSessionIfNeeded(s *SessionState) (bool, error) {
-	if s != nil {
-		log.Printf("%s - %s", s.ExpiresOn.After(time.Now()), s.RefreshToken)
-	} else {
-		log.Println("The session state was nil")
-	}
 	if s == nil || s.ExpiresOn.After(time.Now()) || s.RefreshToken == "" {
 		return false, nil
 	}
