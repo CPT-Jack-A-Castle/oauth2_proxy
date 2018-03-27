@@ -20,7 +20,7 @@ type OktaProvider struct {
 func NewOktaProvider(p *ProviderData) *OktaProvider {
 	p.ProviderName = "Okta"
 	if p.Scope == "" {
-		p.Scope = "openid profile email"
+		p.Scope = "openid profile email offline_access"
 	}
 	return &OktaProvider{ProviderData: p}
 }
