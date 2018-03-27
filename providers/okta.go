@@ -92,6 +92,11 @@ func (p *OktaProvider) ValidateSessionState(s *SessionState) bool {
 }
 
 func (p *OktaProvider) RefreshSessionIfNeeded(s *SessionState) (bool, error) {
+	if s != nil {
+		log.Printf("%s - %s", s.ExpiresOn.After(time.Now()), s.RefreshToken)
+	} else {
+		log.Println("The session state was nil")
+	}
 	if s == nil || s.ExpiresOn.After(time.Now()) || s.RefreshToken == "" {
 		return false, nil
 	}
