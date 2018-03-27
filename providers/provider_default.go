@@ -55,12 +55,16 @@ func (p *ProviderData) Redeem(redirectURL, code string) (s *SessionState, err er
 
 	// blindly try json and x-www-form-urlencoded
 	var jsonResponse struct {
-		AccessToken string `json:"access_token"`
+		AccessToken  string `json:"access_token"`
+		RefreshToken string `json:"refresh_token"`
+		ExpiresIn    string `json:"expires_in"`
 	}
 	err = json.Unmarshal(body, &jsonResponse)
 	if err == nil {
 		s = &SessionState{
-			AccessToken: jsonResponse.AccessToken,
+			AccessToken:  jsonResponse.AccessToken,
+			ExpiresOn:    time.Now().Add(time.Duration(jsonResponse.ExpiresIn) * time.Second).Truncate(time.Second),
+			RefreshToken: jsonResponse.RefreshToken,
 		}
 		return
 	}
