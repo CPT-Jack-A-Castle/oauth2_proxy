@@ -158,6 +158,10 @@ func (h loggingHandler) writeLogLine(username, upstream string, req *http.Reques
 		client = c
 	}
 
+	if len(body) > 500 {
+		body = body[:500]
+	}
+
 	duration := float64(time.Now().Sub(ts)) / float64(time.Second)
 
 	h.logTemplate.Execute(h.writer, logMessageData{
